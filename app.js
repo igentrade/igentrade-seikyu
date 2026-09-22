@@ -133,7 +133,7 @@ function bind() {
   due.setDate(due.getDate() + 30);
   el("dueDate").value = due.toISOString().slice(0, 10);
   el("docNumber").value = `INV-${new Date().getFullYear()}-001`;
-  el("sellerName").value = "iGenTrade";
+  el("sellerName").value = "合同会社威源国際貿易";
   el("notes").value = "振込手数料はお客様負担でお願いいたします。";
 
   renderItemInputs();

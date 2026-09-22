@@ -1,9 +1,12 @@
-# 見積書・請求書メーカー（iGenTrade）
+# 見積書・請求書メーカー（iGenTrade / 合同会社威源国際貿易）
 
 日本の中小企業向けに、**見積書・請求書**をブラウザだけで作成できる無料ツールです。  
 印刷ダイアログから **PDF 保存**もできます。
 
-提供: **iGenTrade**（無料・商用利用可）
+**提供元:** 合同会社威源国際貿易（ブランド名: **iGenTrade**）  
+無料・商用利用可
+
+検索用キーワード: 合同会社威源国際貿易 / 威源国際貿易 / iGenTrade / 見積書 / 請求書 / 中小企業向け無料ツール
 
 ## できること
 
@@ -32,8 +35,6 @@ python3 -m http.server 8080
 
 ## デモ（GitHub Pages）
 
-リポジトリの Settings → Pages で `main` / `/ (root)` を公開すると、次の URL で使えます:
-
 `https://igentrade.github.io/igentrade-seikyu/`
 
 ## プライバシー
@@ -43,8 +44,8 @@ python3 -m http.server 8080
 ## ライセンス
 
 MIT License — 改変・再配布・商用利用OK。  
-クレジットに iGenTrade を残していただけると嬉しいです。
+クレジットに 合同会社威源国際貿易 / iGenTrade を残していただけると嬉しいです。
 
 ---
 
-Made free for Japanese SMEs by **iGenTrade**.
+Made free for Japanese SMEs by **合同会社威源国際貿易（iGenTrade）**.
