@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>見積書・請求書メーカー | iGenTrade</title>
+  <meta name="description" content="日本の中小企業向け。見積書・請求書をブラウザで作成し、印刷・PDF保存できます。iGenTrade が無料提供。" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar no-print">
+    <div class="brand">
+      <strong>iGenTrade</strong>
+      <span>見積書・請求書メーカー</span>
+    </div>
+    <p class="tagline">日本の中小企業向け・無料ツール</p>
+  </header>
+
+  <main class="layout">
+    <aside class="panel no-print">
+      <h2>設定</h2>
+      <label>書類タイプ
+        <select id="docType">
+          <option value="estimate">見積書</option>
+          <option value="invoice" selected>請求書</option>
+        </select>
+      </label>
+      <label>発行日
+        <input type="date" id="issueDate" />
+      </label>
+      <label>支払期限 / 有効期限
+        <input type="date" id="dueDate" />
+      </label>
+      <label>書類番号
+        <input type="text" id="docNumber" placeholder="例: INV-2026-001" />
+      </label>
+
+      <h3>自社情報</h3>
+      <label>会社名
+        <input type="text" id="sellerName" placeholder="株式会社サンプル" />
+      </label>
+      <label>住所
+        <textarea id="sellerAddress" rows="2" placeholder="〒100-0001 東京都千代田区..."></textarea>
+      </label>
+      <label>電話 / メール
+        <input type="text" id="sellerContact" placeholder="03-0000-0000 / info@example.com" />
+      </label>
+      <label>適格請求書発行事業者登録番号
+        <input type="text" id="invoiceReg" placeholder="T1234567890123" />
+      </label>
+      <label>振込先（請求書向け）
+        <textarea id="bankInfo" rows="2" placeholder="〇〇銀行 本店 普通 1234567 カ）サンプル"></textarea>
+      </label>
+
+      <h3>取引先</h3>
+      <label>宛名
+        <input type="text" id="buyerName" placeholder="株式会社お客様 御中" />
+      </label>
+      <label>住所
+        <textarea id="buyerAddress" rows="2"></textarea>
+      </label>
+
+      <h3>明細</h3>
+      <div id="items"></div>
+      <button type="button" id="addItem" class="btn secondary">行を追加</button>
+
+      <h3>税率・備考</h3>
+      <label>標準税率
+        <select id="taxRate">
+          <option value="0.10" selected>10%</option>
+          <option value="0.08">8%（軽減）</option>
+          <option value="0">非課税 / 0%</option>
+        </select>
+      </label>
+      <label>備考
+        <textarea id="notes" rows="3" placeholder="振込手数料はお客様負担でお願いします。"></textarea>
+      </label>
+
+      <div class="actions">
+        <button type="button" id="saveLocal" class="btn secondary">下書き保存</button>
+        <button type="button" id="loadLocal" class="btn secondary">下書き読込</button>
+        <button type="button" id="printBtn" class="btn primary">印刷 / PDF</button>
+      </div>
+      <p class="hint">印刷ダイアログで「PDFに保存」を選ぶとPDF化できます。入力内容はブラウザ内のみで処理され、外部送信しません。</p>
+    </aside>
+
+    <section class="preview-wrap">
+      <article class="sheet" id="sheet">
+        <div class="sheet-head">
+          <div>
+            <p class="doc-label" id="docLabel">請求書</p>
+            <p class="doc-sub">Invoice / Quotation</p>
+          </div>
+          <div class="meta">
+            <p><span>番号</span> <strong id="pDocNumber">—</strong></p>
+            <p><span>発行日</span> <strong id="pIssueDate">—</strong></p>
+            <p><span id="dueLabel">支払期限</span> <strong id="pDueDate">—</strong></p>
+          </div>
+        </div>
+
+        <div class="parties">
+          <div class="buyer">
+            <p class="name" id="pBuyerName">（宛名）</p>
+            <p class="addr" id="pBuyerAddress"></p>
+            <p class="honor">下記の通りご請求申し上げます。</p>
+          </div>
+          <div class="seller">
+            <p class="name" id="pSellerName">（自社名）</p>
+            <p class="addr" id="pSellerAddress"></p>
+            <p class="addr" id="pSellerContact"></p>
+            <p class="reg" id="pInvoiceReg"></p>
+          </div>
+        </div>
+
+        <div class="total-banner">
+          <span>ご請求金額（税込）</span>
+          <strong id="pGrandTotal">¥0</strong>
+        </div>
+
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>品目・内容</th>
+              <th>数量</th>
+              <th>単位</th>
+              <th>単価</th>
+              <th>金額</th>
+            </tr>
+          </thead>
+          <tbody id="pItems"></tbody>
+        </table>
+
+        <div class="totals">
+          <div class="bank" id="pBankBlock">
+            <h4>お振込先</h4>
+            <p id="pBankInfo"></p>
+          </div>
+          <dl>
+            <div><dt>小計（税抜）</dt><dd id="pSubtotal">¥0</dd></div>
+            <div><dt id="pTaxLabel">消費税（10%）</dt><dd id="pTax">¥0</dd></div>
+            <div class="grand"><dt>合計（税込）</dt><dd id="pTotal">¥0</dd></div>
+          </dl>
+        </div>
+
+        <div class="notes-block">
+          <h4>備考</h4>
+          <p id="pNotes"></p>
+        </div>
+
+        <footer class="sheet-foot">
+          <p>本ツールは <strong>iGenTrade</strong> が中小企業向けに無料提供しています。</p>
+          <p class="url">https://github.com/bigman4719/igentrade-seikyu</p>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-foot no-print">
+    <p>© iGenTrade — 日本の中小企業向け無料ツール。商用利用可・改変可（MIT）。</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
