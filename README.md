@@ -4,6 +4,7 @@
 印刷ダイアログから **PDF 保存**もできます。
 
 **提供元:** 合同会社威源国際貿易（ブランド名: **iGenTrade**）  
+**公式サイト:** https://www.igentrade.com/  
 無料・商用利用可
 
 検索用キーワード: 合同会社威源国際貿易 / 威源国際貿易 / iGenTrade / 見積書 / 請求書 / 中小企業向け無料ツール
@@ -48,4 +49,5 @@ MIT License — 改変・再配布・商用利用OK。
 
 ---
 
-Made free for Japanese SMEs by **合同会社威源国際貿易（iGenTrade）**.
+Made free for Japanese SMEs by **合同会社威源国際貿易（iGenTrade）**.  
+Official site: https://www.igentrade.com/

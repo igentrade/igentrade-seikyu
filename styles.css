@@ -226,3 +226,6 @@ body {
     padding: 0;
   }
 }
+
+.site-foot a { color: var(--accent); text-decoration: none; }
+.site-foot a:hover { text-decoration: underline; }
