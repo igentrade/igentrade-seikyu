@@ -34,7 +34,7 @@ python3 -m http.server 8080
 
 リポジトリの Settings → Pages で `main` / `/ (root)` を公開すると、次の URL で使えます:
 
-`https://<your-username>.github.io/igentrade-seikyu/`
+`https://igentrade.github.io/igentrade-seikyu/`
 
 ## プライバシー
 
