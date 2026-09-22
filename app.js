@@ -127,6 +127,14 @@ function refreshPreview() {
   el("pBankBlock").style.display = isInvoice ? "block" : "none";
 }
 
+
+function syncBrandFoot() {
+  const foot = el("brandFoot");
+  const on = el("showBrand") && el("showBrand").checked;
+  if (!foot) return;
+  foot.classList.toggle("is-hidden", !on);
+}
+
 function bind() {
   el("issueDate").value = todayISO();
   const due = new Date();
@@ -179,6 +187,8 @@ function bind() {
     "notes",
   ].forEach((id) => el(id).addEventListener("input", refreshPreview));
 
+  el("showBrand").addEventListener("change", syncBrandFoot);
+  syncBrandFoot();
   el("printBtn").addEventListener("click", () => window.print());
   el("saveLocal").addEventListener("click", () => {
     localStorage.setItem(stateKey, JSON.stringify(readForm()));
